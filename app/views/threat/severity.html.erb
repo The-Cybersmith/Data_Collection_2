@@ -1,2 +1,23 @@
-<h1>Threat#severity</h1>
-<p>Find me in app/views/threat/severity.html.erb</p>
+<h1 style="text-align:center;">Data Collection System</h1>
+<hr size="10" style="background-color:#000000">
+
+<p>Please enter the degree of severity, Low, Medium, or High.</p>
+<%= form_with( scope: :threat, url: "preview", local: true) do |form| %>
+  <p>
+    <%= form.label :severity %><br>
+    <%= form.label :severity, "Low", :value => "Low"  %>
+    <%= form.radio_button :severity, "Low" %></br>
+    <%= form.label :severity, "Medium", :value => "Medium" %>
+    <%= form.radio_button :severity, "Medium" %></br>
+    <%= form.label :severity, "High", :value => "High"  %>
+    <%= form.radio_button :severity, "High" %></br>
+  </p>
+  <p>
+    <%= form.submit "next"%>
+  </p>
+<% end %>
+
+<p><a href="/threat/name">Click here to restart the submission process.</a></p>
+
+<hr size="10" style="background-color:#000000">
+<h1 style="text-align:center;">Second Version, made in 2022</h1>

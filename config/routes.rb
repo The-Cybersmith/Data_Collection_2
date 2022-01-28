@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   get 'threat/name'
   post 'threat/contact'
+  get 'threat/contact'
   post 'threat/severity'
+  get 'threat/severity'
   post 'threat/preview'
   post 'threat/display'
   get 'threat/display'

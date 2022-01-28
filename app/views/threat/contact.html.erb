@@ -1,2 +1,18 @@
-<h1>Threat#contact</h1>
-<p>Find me in app/views/threat/contact.html.erb</p>
+<h1 style="text-align:center;">Data Collection System</h1>
+<hr size="10" style="background-color:#000000">
+
+<p>Please enter a valid email address.</p>
+<%= form_with( scope: :threat, url: "severity", local: true) do |form| %>
+  <p>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+  </p>
+  <p>
+    <%= form.submit "next"%>
+  </p>
+<% end %>
+
+<p><a href="/threat/name">Click here to restart the submission process.</a></p>
+
+<hr size="10" style="background-color:#000000">
+<h1 style="text-align:center;">Second Version, made in 2022</h1>

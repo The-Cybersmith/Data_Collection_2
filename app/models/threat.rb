@@ -4,4 +4,6 @@ class Threat < ApplicationRecord
   validates :name, uniqueness: false, length: {minimum: 2}
   # Email restrictions.
   validates :email, uniqueness: false, format: { with: URI::MailTo::Email_REGEXP}
+  # Severity Restriction
+  validates :severity, inclusion: {in: Globals::ModelConstraints::Severities}
 end

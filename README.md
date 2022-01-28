@@ -95,3 +95,11 @@ Rails wants all the data at once so it can use its "create" process. Three separ
 The next bloody horrible nightmare experience was creating forms for each page in the process. Because each question needs its own page, then a specific form is needed to point to the next question. This is... RIDICULOUSLY DIFFICULT. Rails doesn't let me just directly make forms, that would be FAR too sensible. No, it has to be QUIRKY, and DIFFERNT TO PHP. It has a strange "form_with" method, with arcane syntax which makes it hard to see where the form is pointed. After much googling, I managed to set those up.
 
 The first question requires no parameters, and is reached by the "get" method. The latter two questions, and preview, can be reached only via "post". The final display process needs to be reachable via both methods (as I wanted the display to be viewable without having to add a new one).
+
+Further difficulty comes from allowing people to navigate back. I cannot see a method for allowing free navigation that doesn't break. I settled on allowing a total reset.
+
+Further complicating this is that, in rails, I can't just re-use html components like in PHP, so any repeated elements have to be manually entered every time.
+
+The next issue is that users should not be allowed to progress if the data they enter is invalid. Logically, this should require a redirect on a failed enty. The problem? In Ruby, you cannot redirect with post, and you cannot pass parameters with get. >:[
+
+So now all the steps have to accept get, or they won't be reachable via redirect... WHY IS THIS DESIGNED THIS WAY?
