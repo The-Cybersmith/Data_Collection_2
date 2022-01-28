@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'threat/name'
+  post 'threat/contact'
+  post 'threat/severity'
+  post 'threat/preview'
+  post 'threat/display'
+  get 'threat/display'
+  # First, the index page, which is where the user will arrive by default (by visiting "http://localhost:3000/")
+  get 'home/index', to: 'home#index'
+  root to: 'home#index'
 end

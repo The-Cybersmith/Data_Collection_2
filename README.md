@@ -3,7 +3,7 @@
 This was created on an ubuntu virtual machine, which took hours, because RUBY WAS CREATED BY MALEVOLENT EXTRATERRESTRIAL MONSTERS TO TORMENT HUMANITY.
 The following steps were performed to create all of this.
 
-First: install PostGres
+First: install PostGres (when asked for a password, just use "password", security isn't a concern for this test)
 ```
 sudo apt install postgresql postgresql-contrib libpq-dev
 sudo -u postgres createuser -s cybersmith -P
@@ -39,6 +39,11 @@ cd Data_Collection_2
 Fourth: setup NodeJS (one of the many bloody dependencies of this cursed software stack)
 ```
 sudo apt install nodejs
+npm cache clean -f
+sudo npm install -g n
+sudo n stable
+hash -r
+
 ```
 
 Fifth: create rails app (you can skip this if you are just using my code, not creating your own)
@@ -59,9 +64,10 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 sudo apt-get install yarn -y
 yarn install
-yarn install
+yarn add @rails/webpacker
 rails webpacker:install
 bundle install
+rails webpacker:compile
 ```
 
 Seventh: setup the rails itself (sigh with relief, and wonder if it's not too late to run off to Ukraine and become a mercenary)
@@ -72,4 +78,20 @@ bin/rails s
 
 Okay, that was SETUP.
 
+You may now open the browser of your choice, and go to: http://localhost:3000/
+___________________________________________________________________
+What follows is purely internal overview commentary on how and why certain aspects of the program were coded, and has no relevance to the running of it.
+___________________________________________________________________
 
+
+The first major obstacle is that Ruby On Rails is very unintuitive with the setup of its views.
+The second is that the specification wants each question presented separately, but the Rails activeRecord system wants an entire model created.
+So a method had to be found to store the early data until the user was finished with the preview, then put it all into the database at once.
+
+With PHP this could be done with session variables. Rails doesn't work this way, because it is a tool put on earth for the purpose of maximising suffering, a sort of anti-Utilitarian Bizarro-Bentham monstrosity, utterly defiant to the principles and ideals of morally sound humans everywhere. Whilst session variables do exist in Rails, they are stored partly on the client side. This does make it possible, just... very strange.
+
+Rails wants all the data at once so it can use its "create" process. Three separate pages for three separate inputs won't satisfy this.
+
+The next bloody horrible nightmare experience was creating forms for each page in the process. Because each question needs its own page, then a specific form is needed to point to the next question. This is... RIDICULOUSLY DIFFICULT. Rails doesn't let me just directly make forms, that would be FAR too sensible. No, it has to be QUIRKY, and DIFFERNT TO PHP. It has a strange "form_with" method, with arcane syntax which makes it hard to see where the form is pointed. After much googling, I managed to set those up.
+
+The first question requires no parameters, and is reached by the "get" method. The latter two questions, and preview, can be reached only via "post". The final display process needs to be reachable via both methods (as I wanted the display to be viewable without having to add a new one).
