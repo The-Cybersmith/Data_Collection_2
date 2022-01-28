@@ -3,14 +3,14 @@
 
 <p>Review your answers, and submit if satisfied.</p>
 <h2>What is your name? </h2></br>
-<%= @name %></br>
+<%= @name %>
 <h2>What is your email? </h2></br>
-<%= @email %></br>
+<%= @email %>
 <h2>What is the severity? </h2></br>
 <%= @severity %></br>
 <%= form_with( scope: :threat, url: "display", local: true) do |form| %>
   <p>
-    <%= form.submit %>
+    <%= form.submit "SUBMIT"%>
   </p>
 <% end %>
 

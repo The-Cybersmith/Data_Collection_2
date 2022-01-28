@@ -4,42 +4,56 @@ class ThreatController < ApplicationController
   skip_before_action :verify_authenticity_token #necessary to prevent browser caching from making it all
   def name
     #Blank out any session variables.
-  session[:name] = ""
-  session[:email] = ""
-  session[:severity] = ""
+    @name = ""
+    @email = ""
+    @severity = ""
+    session[:name] = ""
+    session[:email] = ""
+    session[:severity] = ""
   end
 
   def contact
     # check character length, and redirect if it isn't enough
-    if (params[:threat][:name].length < 2)
-      redirect_to '/threat/name'
-    else
-      session[:name] = params[:name]
+    if !params[:threat].nil?
+      if (params[:threat][:name].length < 2)
+        redirect_to '/threat/name'
+      else
+        session[:name] = params[:threat][:name]
+      end
     end
   end
 
   def severity
     # check email validity, and redirect if it isn't valid
-    if (params[:threat][:email] =~ URI::MailTo::EMAIL_REGEXP)
-      session[:email] = params[:email]
-    else
-      redirect_to '/threat/contact'
+    if !params[:threat].nil?
+      if (params[:threat][:email] =~ URI::MailTo::EMAIL_REGEXP)
+        session[:email] = params[:threat][:email]
+      else
+        redirect_to '/threat/contact'
+      end
     end
   end
 
   def preview
     # check severity validity, and redirect if it isn't valid
-    if (Globals::ModelConstraints::Severities.include? params[:threat][:severity])
-      session[:severity] = params[:severity]
-    else
-      redirect_to '/threat/severity'
+    if !params[:threat].nil?
+      if (Globals::ModelConstraints::Severities.include? params[:threat][:severity])
+        @severity = params[:threat][:severity]
+        session[:severity] = params[:threat][:severity]
+        @name = session[:name]
+        @email = session[:email]
+      else
+        redirect_to '/threat/severity'
+      end
     end
   end
 
   def display
-    # Instance variables allow the frontend to show data.
-    @severity = "cheese"
-    @name = session[:name]
-    @email = session[:email]
+    #If parameters have been sent, then there has been a submission, and we can add the new one.
+    if request.post?
+      Threat.create(name: session[:name], email: session[:email], severity: session[:severity])
+    end
+    #Show all threats.
+    @threats = Threat.all
   end
 end

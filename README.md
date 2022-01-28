@@ -103,3 +103,5 @@ Further complicating this is that, in rails, I can't just re-use html components
 The next issue is that users should not be allowed to progress if the data they enter is invalid. Logically, this should require a redirect on a failed enty. The problem? In Ruby, you cannot redirect with post, and you cannot pass parameters with get. >:[
 
 So now all the steps have to accept get, or they won't be reachable via redirect... WHY IS THIS DESIGNED THIS WAY?
+
+Okay, it now works. To test, please follow the second link from the homepage, enter all values as instructed, then return to the homepage via the link on the display page, and repeat. You should now see both your second AND first entries.

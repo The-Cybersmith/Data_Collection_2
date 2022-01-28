@@ -1,2 +1,25 @@
-<h1>Threat#display</h1>
-<p>Find me in app/views/threat/display.html.erb</p>
+<h1 style="text-align:center;">Data Collection System</h1>
+<hr size="10" style="background-color:#000000">
+
+<h2>Threats</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Severity</th>
+    <th></th>
+  </tr>
+ 
+  <% @threats.each do |threat| %>
+    <tr>
+      <td><%= threat.name %></td>
+      <td><%= threat.email %></td>
+      <td><%= threat.severity %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><a href="/home/index">Click here to return home.</a></p>
+
+<hr size="10" style="background-color:#000000">
+<h1 style="text-align:center;">Second Version, made in 2022</h1>
